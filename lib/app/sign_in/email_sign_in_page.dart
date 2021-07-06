@@ -23,7 +23,7 @@ class EmailSignInPage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.orange[400],
     );
   }
 }
