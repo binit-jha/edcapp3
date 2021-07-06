@@ -1,17 +1,26 @@
 // @dart=2.9
+import 'package:edcapp/AboutUs.dart';
+import 'package:edcapp/Constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:edcapp/services/auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key key, @required this.auth, @required this.onSignOut}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key key, @required this.auth, @required this.onSignOut})
+      : super(key: key);
   final AuthBase auth;
   final VoidCallback onSignOut;
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      onSignOut();
+      widget.onSignOut();
     } catch (e) {
       print(e.toString());
     }
@@ -97,7 +106,7 @@ class HomePage extends StatelessWidget {
                           titleList[index],
                           style: TextStyle(
                             fontSize: 25,
-                            color: Colors.grey,
+                            color: Colors.orange,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -122,11 +131,46 @@ class HomePage extends StatelessWidget {
           );
         },
       ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("Abhishek Mishra"),
+              accountEmail: Text("abhishekm977@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.orange,
+                child: Text('E-cell'),
+              ),
+            ),
+
+            // DrawerHeader(
+            //   decoration: BoxDecoration(
+            //     color: Colors.blue,
+            //   ),
+
+            ListTile(
+                title: Text('About Us'),
+                onTap: () {
+                  AboutUs();
+                  Navigator.pop(context);
+                  Navigator.of(context).pushNamed(ABOUTUS);
+                }),
+            ListTile(
+              title: Text('E-leaders'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
-
-
 
 void openURL() async {
   if (await canLaunch('https://www.google.com'))
@@ -135,7 +179,6 @@ void openURL() async {
     // can't launch url, there is some error
     throw "Could not launch url";
 }
-
 
 // This is a block of Model Dialog
 showDialogFunc(context, img, title, desc) {

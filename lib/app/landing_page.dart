@@ -9,8 +9,6 @@ class LandingPage extends StatelessWidget {
   const LandingPage({Key key, @required this.auth}) : super(key: key);
   final AuthBase auth;
 
-
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User>(
@@ -24,6 +22,7 @@ class LandingPage extends StatelessWidget {
               //onSignIn: _updateUser,
             );
           }
+          //return HomePage(
           return HomePage(
             auth: auth,
             //onSignOut: () => _updateUser(null),

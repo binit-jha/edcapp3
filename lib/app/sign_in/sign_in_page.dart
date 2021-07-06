@@ -46,11 +46,11 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('edc app'),
+        title: Text('Edc app'),
         elevation: 2.0,
       ),
       body: _buildContent(context),
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.orange[400],
     );
   }
 
